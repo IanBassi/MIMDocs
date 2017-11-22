@@ -148,13 +148,44 @@ UocTextBox control to edit the Description attribute of a group:
 
 By using an **XMLDataSource**, you can specify custom data that the RCDC can consume for a given resource. In this case, the XML data must be specified in the RCDC. As an alternative, this data source can be used to reference a built-in XML data structure to render the UI for summary pages. You control what type of **XMLDataSource** to use when you define it in the RCDC.
 
+**XMLDataSource** 
+The data source represents XML data. It can be in either XSL or embedded XSL formats: 
 
-| TypeName                 | Description   | | |
-|--------------------------|------------|
-| **XMLDataSource**            | The data source represents XML data. It can be in either XSL or embedded XSL formats: <br/>**XSL format:** <br/> Microsoft.IdentityManagement.WebUI.Controls.dll<my:XmlDataSource my:Name=" <br/>summaryTransformXsl"my:Parameters=”Microsoft.IdentityManagement.WebUI.Controls.Resources.DefaultSummary.xsl”> </my:XmlDataSource><br/> **Embedded XSL format:** <br/> <my:XmlDataSource my:Name="RequestStatusTransformXsl"> <br/> <xsl:stylesheet version="1.0" xmlns:xsl=http://www.w3.org/1999/XSL/Transform <br/> xmlns:msxsl="urn:schemas-microsoft-com:xslt"><br/></xsl:stylesheet></my:XmlDataSource>                       |No | ```Xpath[;namespaces]``` <br/> Where:Xpath is a valid XML xpath to select the required note, most often “/” (root) <br/>Namespaces is an optional list of prefix=URI strings, delimited by semicolons, if required for the xpath to work against namespaced XML. |
-| **ReferenceDeltaDataSource** | The data source represents deltas of multivalued reference attributes. It is used only on RCDC for Group and Set. <br/> Although the data source is not limited to Groups or Sets, it requires code changes in the RCDC host to submit such deltas. Currently, Group and Set are the only hosts that recognize this datasource.  | Yes                      | [AttributeName].Add where [AttributeName] represents a reference attribute and the data returned is the delta additions. <br/> Example: [ReferenceAttribute].Add <br/>Example: ```<my:Property my:Name="Value" my:Value="{Binding Source=delta, Path=ExplicitMember.Add, Mode=TwoWay}" />``` <br/>[AttributeName].Remove where [AttributeName] represents a reference attribute and the data returned is the delta removals. <br/> DeltaXml |
-|**RequestDetailsDataSource**| The data source represents the RequestParameter attribute of Request objects. The parameter sets the maximum number of attribute values to be displayed per multivalued attribute It is used only in RCDC for Request. ```<my:ObjectDataSource my:TypeName="RequestDetailsDataSource" my:Name="requestDetails" my:Parameters="1000" />```| No | DeltaXml |
-|**RequestStatusDataSource**| The data source represents the **RequestStatusDetails** attribute of Request objects. <br/>It is used only in RCDC for Request.  | No | DeltaXml |
+**XSL format:** 
+Microsoft.IdentityManagement.WebUI.Controls.dll<my:XmlDataSource my:Name=" <summaryTransformXsl"my:Parameters=”Microsoft.IdentityManagement.WebUI.Controls.Resources.DefaultSummary.xsl”> 
+</my:XmlDataSource>
+
+**Embedded XSL format:** 
+
+<my:XmlDataSource my:Name="RequestStatusTransformXsl">
+<xsl:stylesheet version="1.0" xmlns:xsl=http://www.w3.org/1999/XSL/Transform xmlns:msxsl="urn:schemas-microsoft-com:xslt"> </xsl:stylesheet></my:XmlDataSource> Xpath[;namespaces]
+
+Where Xpath is a valid XML xpath to select the required note, most often “/” (root)
+
+Namespaces is an optional list of prefix=URI strings, delimited by semicolons, if required for the xpath to work against namespaced XML. 
+
+**ReferenceDeltaDataSource** 
+
+The data source represents deltas of multivalued reference attributes. It is used only on RCDC for Group and Set. <br/> Although the data source is not limited to Groups or Sets, it requires code changes in the RCDC host to submit such deltas. Currently, Group and Set are the only hosts that recognize this datasource.  
+
+[AttributeName].Add where [AttributeName] represents a reference attribute and the data returned is the delta additions.
+
+Example: [ReferenceAttribute].Add 
+
+Example: ```<my:Property my:Name="Value" my:Value="{Binding Source=delta, Path=ExplicitMember.Add, Mode=TwoWay}" />``` 
+
+[AttributeName].Remove where [AttributeName] represents a reference attribute and the data returned is the delta removals.  
+
+**RequestDetailsDataSource**
+
+The data source represents the RequestParameter attribute of Request objects. The parameter sets the maximum number of attribute values to be displayed per multivalued attribute It is used only in RCDC for Request. 
+
+<my:ObjectDataSource my:TypeName="RequestDetailsDataSource" my:Name="requestDetails" my:Parameters="1000" />
+
+**RequestStatusDataSource**
+The data source represents the **RequestStatusDetails** attribute of Request objects. 
+
+It is used only in RCDC for Request. 
 
 -   To define a custom XML data source:
 
